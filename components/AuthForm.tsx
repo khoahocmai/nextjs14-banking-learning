@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
-import { getLoggedInUser, signIn, signUp } from "@/lib/actions/user.actions";
+import { signIn, signUp } from "@/lib/actions/user.actions";
 import { authFormSchema } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2 } from "lucide-react";
@@ -13,6 +13,8 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import CustomInput from "./CustomInput";
+import PlaidLink from "./PlaidLink";
+import CustomSelect from "./CustomSelect";
 
 const AuthForm = ({ type }: { type: string }) => {
   const router = useRouter();
@@ -29,7 +31,7 @@ const AuthForm = ({ type }: { type: string }) => {
       password: "",
       firstName: "",
       lastName: "",
-      address: "",
+      address1: "",
       city: "",
       state: "",
       postalCode: "",
@@ -43,7 +45,19 @@ const AuthForm = ({ type }: { type: string }) => {
     setIsLoading(true);
     try {
       if (type === "sign-up") {
-        const newUser = await signUp(data);
+        const userData = {
+          firstName: data.firstName!,
+          lastName: data.lastName!,
+          address1: data.address1!,
+          city: data.city!,
+          state: data.state!,
+          postalCode: data.postalCode!,
+          dateOfBirth: data.dateOfBirth!,
+          ssn: data.ssn!,
+          email: data.email,
+          password: data.password,
+        };
+        const newUser = await signUp(userData);
         setUser(newUser);
       }
 
@@ -89,12 +103,7 @@ const AuthForm = ({ type }: { type: string }) => {
       </header>
       {user ? (
         <div className="flex flex-col gap-4">
-          {/* 
-          Plaid Link
-          <button className="btn btn-primary">Link with Google</button>
-          <button className="btn btn-primary">Link with Facebook</button>
-          <button className="btn btn-primary">Link with Apple</button> 
-          */}
+          <PlaidLink user={user} variant="primary" />
         </div>
       ) : (
         <>
@@ -119,7 +128,7 @@ const AuthForm = ({ type }: { type: string }) => {
 
                   <CustomInput
                     control={form.control}
-                    name="address"
+                    name="address1"
                     label="Address"
                     placeholder="Enter your address"
                   />
@@ -131,17 +140,23 @@ const AuthForm = ({ type }: { type: string }) => {
                   />
 
                   <div className="flex gap-4">
-                    <CustomInput
+                    {/* <CustomInput
                       control={form.control}
                       name="state"
                       label="State"
                       placeholder="Example: VN"
+                    /> */}
+                    <CustomSelect
+                      control={form.control}
+                      name="state"
+                      label="State"
                     />
+
                     <CustomInput
                       control={form.control}
                       name="postalCode"
                       label="Postal Code"
-                      placeholder="Example: 777000"
+                      placeholder="12345 or 12345-6789"
                     />
                   </div>
 
@@ -156,7 +171,7 @@ const AuthForm = ({ type }: { type: string }) => {
                       control={form.control}
                       name="ssn"
                       label="SSN"
-                      placeholder="Example: 123-45-6789"
+                      placeholder="123-45-6789"
                     />
                   </div>
                 </>
