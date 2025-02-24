@@ -1,25 +1,21 @@
-"use client";
-
+import { mockTotalBanks } from "@/components/mockData";
 import AnimatedCounter from "./AnimatedCounter";
 import DoughnutChart from "./DoughnutChart";
 
-const TotalBalanceBox = ({
-  accounts = [],
-  totalBanks,
-  totalCurrentBalance,
-}: TotalBalanceBoxProps) => {
+const TotalBalanceBox = () => {
   return (
     <section className="total-balance">
       <div className="total-balance-chart">
-        <DoughnutChart accounts={accounts} />
+        <DoughnutChart />
       </div>
 
       <div className="flex flex-col gap-6">
-        <h2 className="header-2">Bank Accounts: {totalBanks} </h2>
+        <h2 className="header-2">Bank Accounts: {mockTotalBanks}</h2>
         <div className="flex flex-col gap-2">
           <p className="total-balance-label">Total Current Balance</p>
+
           <div className="total-balance-amount flex-center gap-2">
-            <AnimatedCounter amount={totalCurrentBalance} />
+            <AnimatedCounter />
           </div>
         </div>
       </div>

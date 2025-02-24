@@ -1,21 +1,19 @@
 "use client";
 
-import Image from "next/image";
-import { useSearchParams, useRouter } from "next/navigation";
-
 import {
   cn,
   formUrlQuery,
   formatAmount,
   getAccountTypeColors,
 } from "@/lib/utils";
+import Image from "next/image";
+import { useRouter, useSearchParams } from "next/navigation";
 
 const BankInfo = ({ account, appwriteItemId, type }: BankInfoProps) => {
   const router = useRouter();
   const searchParams = useSearchParams();
 
   const isActive = appwriteItemId === account?.appwriteItemId;
-
   const handleBankChange = () => {
     const newUrl = formUrlQuery({
       params: searchParams.toString(),

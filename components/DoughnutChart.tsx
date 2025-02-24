@@ -1,14 +1,15 @@
 "use client";
 
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+import { mockAccounts } from "@/components/mockData"; // Import mock data
+import { ArcElement, Chart as ChartJS, Legend, Tooltip } from "chart.js";
 import { Doughnut } from "react-chartjs-2";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-const DoughnutChart = ({ accounts }: DoughnutChartProps) => {
-  const accountName = accounts.map((account) => account.name);
+const DoughnutChart = () => {
+  const accountNames = mockAccounts.map((a) => a.name);
+  const balances = mockAccounts.map((a) => a.currentBalance);
 
-  const balances = accounts.map((account) => account.currentBalance);
   const data = {
     datasets: [
       {
@@ -17,8 +18,9 @@ const DoughnutChart = ({ accounts }: DoughnutChartProps) => {
         backgroundColor: ["#0747b6", "#2265d8", "#2f91fa"],
       },
     ],
-    labels: accountName,
+    labels: accountNames,
   };
+
   return (
     <Doughnut
       data={data}

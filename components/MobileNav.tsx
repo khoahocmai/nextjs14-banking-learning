@@ -8,7 +8,6 @@ import {
 } from "@/components/ui/sheet";
 import { sidebarLinks } from "@/constants";
 import { cn } from "@/lib/utils";
-import { DialogTitle } from "@radix-ui/react-dialog";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -16,8 +15,9 @@ import Footer from "./Footer";
 
 const MobileNav = ({ user }: MobileNavProps) => {
   const pathname = usePathname();
+
   return (
-    <section className="w-full max-w-[264px]">
+    <section className="w-fulll max-w-[264px]">
       <Sheet>
         <SheetTrigger>
           <Image
@@ -28,8 +28,7 @@ const MobileNav = ({ user }: MobileNavProps) => {
             className="cursor-pointer"
           />
         </SheetTrigger>
-        <SheetContent side="right" className="border-none bg-white">
-          <DialogTitle className="sr-only">Menu</DialogTitle>
+        <SheetContent side="left" className="border-none bg-white">
           <Link
             href="/"
             className="cursor-pointer flex items-center gap-1 px-4"
@@ -44,44 +43,47 @@ const MobileNav = ({ user }: MobileNavProps) => {
               Horizon
             </h1>
           </Link>
-
           <div className="mobilenav-sheet">
-            <nav className="flex h-full flex-col gap-6 pt-16 text-white">
-              {sidebarLinks.map((item) => {
-                const isActive =
-                  pathname === item.route ||
-                  pathname.startsWith(`${item.route}/`);
-                return (
-                  <SheetClose asChild key={item.route}>
-                    <Link
-                      href={item.route}
-                      key={item.label}
-                      className={cn("mobilenav-sheet_close w-full", {
-                        "bg-bank-gradient": isActive,
-                      })}
-                    >
-                      <Image
-                        src={item.imgURL}
-                        alt={item.label}
-                        width={20}
-                        height={20}
-                        className={cn({
-                          "brightness-[3] invert-0": isActive,
-                        })}
-                      />
-                      <p
-                        className={cn("text-16 font-semibold text-black-2", {
-                          "text-white": isActive,
+            <SheetClose asChild>
+              <nav className="flex h-full flex-col gap-6 pt-16 text-white">
+                {sidebarLinks.map((item) => {
+                  const isActive =
+                    pathname === item.route ||
+                    pathname.startsWith(`${item.route}/`);
+
+                  return (
+                    <SheetClose asChild key={item.route}>
+                      <Link
+                        href={item.route}
+                        key={item.label}
+                        className={cn("mobilenav-sheet_close w-full", {
+                          "bg-bank-gradient": isActive,
                         })}
                       >
-                        {item.label}
-                      </p>
-                    </Link>
-                  </SheetClose>
-                );
-              })}
-              USER
-            </nav>
+                        <Image
+                          src={item.imgURL}
+                          alt={item.label}
+                          width={20}
+                          height={20}
+                          className={cn({
+                            "brightness-[3] invert-0": isActive,
+                          })}
+                        />
+                        <p
+                          className={cn("text-16 font-semibold text-black-2", {
+                            "text-white": isActive,
+                          })}
+                        >
+                          {item.label}
+                        </p>
+                      </Link>
+                    </SheetClose>
+                  );
+                })}
+                USER
+              </nav>
+            </SheetClose>
+
             <Footer user={user} type="mobile" />
           </div>
         </SheetContent>

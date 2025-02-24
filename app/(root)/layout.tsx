@@ -1,6 +1,6 @@
 import MobileNav from "@/components/MobileNav";
-import SideBar from "@/components/SideBar";
-import { getLoggedInUser } from "@/lib/actions/user.actions";
+import { mockUser } from "@/components/mockData";
+import Sidebar from "@/components/Sidebar";
 import Image from "next/image";
 import { redirect } from "next/navigation";
 
@@ -9,12 +9,13 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const loggedIn = await getLoggedInUser();
+  const loggedIn = mockUser;
 
   if (!loggedIn) redirect("/sign-in");
+
   return (
     <main className="flex h-screen w-full font-inter">
-      <SideBar user={loggedIn} />
+      <Sidebar user={loggedIn} />
 
       <div className="flex size-full flex-col">
         <div className="root-layout">
