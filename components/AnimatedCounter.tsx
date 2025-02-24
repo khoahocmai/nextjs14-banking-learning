@@ -1,17 +1,11 @@
 "use client";
 
-import { mockTotalCurrentBalance } from "@/components/mockData"; // Import mock data
 import CountUp from "react-countup";
 
-const AnimatedCounter = () => {
+const AnimatedCounter = ({ amount }: { amount: number }) => {
   return (
     <div className="w-full">
-      <CountUp
-        decimals={2}
-        decimal=","
-        prefix="$"
-        end={mockTotalCurrentBalance}
-      />
+      <CountUp decimals={3} decimal="," prefix="$" end={amount} />
     </div>
   );
 };

@@ -5,6 +5,8 @@ import TotalBalanceBox from "@/components/TotalBalanceBox";
 import {
   mockAccounts,
   mockBanks,
+  mockTotalBanks,
+  mockTotalCurrentBalance,
   mockTransactions,
   mockUser,
 } from "@/components/mockData";
@@ -24,7 +26,11 @@ const Home = async ({ searchParams }: { searchParams: { page?: string } }) => {
             subtext="Access and manage your account and transactions efficiently."
           />
 
-          <TotalBalanceBox />
+          <TotalBalanceBox
+            accounts={mockAccounts}
+            totalBanks={mockTotalBanks}
+            totalCurrentBalance={mockTotalCurrentBalance}
+          />
         </header>
 
         <RecentTransactions

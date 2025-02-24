@@ -9,21 +9,21 @@ const RightSidebar = ({ user, transactions, banks }: RightSidebarProps) => {
   const categories: CategoryCount[] = countTransactionCategories(transactions);
 
   return (
-    <aside className="right-sidebar p-6 bg-white rounded-xl shadow-md">
+    <aside className="right-sidebar p-6 bg-green-100 rounded-xl shadow-md">
       {/* Profile Section */}
       <section className="flex flex-col items-center pb-6">
-        <div className="profile-banner w-full h-24 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-t-lg" />
+        <div className="profile-banner w-full h-24 bg-gradient-to-r from-green-500 to-green-700 rounded-t-lg" />
         <div className="profile flex flex-col items-center mt-[-40px]">
-          <div className="profile-img w-20 h-20 rounded-full bg-gray-200 flex items-center justify-center shadow-lg overflow-hidden">
-            <span className="text-4xl font-bold text-blue-600">
+          <div className="profile-img w-20 h-20 rounded-full bg-white flex items-center justify-center shadow-lg overflow-hidden border-2 border-green-500">
+            <span className="text-4xl font-bold text-green-700">
               {user.firstName[0]}
             </span>
           </div>
           <div className="profile-details text-center mt-3">
-            <h1 className="text-lg font-semibold text-gray-800">
+            <h1 className="text-lg font-semibold text-green-900">
               {user.firstName} {user.lastName}
             </h1>
-            <p className="text-sm text-gray-500">{user.email}</p>
+            <p className="text-sm text-green-700">{user.email}</p>
           </div>
         </div>
       </section>
@@ -31,10 +31,10 @@ const RightSidebar = ({ user, transactions, banks }: RightSidebarProps) => {
       {/* Banks Section */}
       <section className="banks mt-6">
         <div className="flex w-full justify-between items-center">
-          <h2 className="text-lg font-semibold text-gray-800">My Banks</h2>
+          <h2 className="text-lg font-semibold text-green-900">My Banks</h2>
           <Link
             href="/"
-            className="flex items-center gap-2 text-blue-600 hover:text-blue-800"
+            className="flex items-center gap-2 text-green-600 hover:text-green-800"
           >
             <Image
               src="/icons/plus.svg"
@@ -67,13 +67,13 @@ const RightSidebar = ({ user, transactions, banks }: RightSidebarProps) => {
             })}
           </div>
         ) : (
-          <p className="text-sm text-gray-500 mt-3">No banks linked yet.</p>
+          <p className="text-sm text-green-700 mt-3">No banks linked yet.</p>
         )}
       </section>
 
       {/* Transaction Categories */}
       <section className="mt-8">
-        <h2 className="text-lg font-semibold text-gray-800 mb-3">
+        <h2 className="text-lg font-semibold text-green-900 mb-3">
           Top Categories
         </h2>
         <div className="grid grid-cols-2 gap-4 max-h-[200px] overflow-y-auto">
