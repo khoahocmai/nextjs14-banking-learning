@@ -1,5 +1,8 @@
+"use client";
+
 import { countTransactionCategories } from "@/lib/utils";
-import Image from "next/image";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Plus } from "lucide-react";
 import Link from "next/link";
 import BankCard from "./BankCard";
 import Category from "./Category";
@@ -29,58 +32,58 @@ const RightSidebar = ({ user, transactions, banks }: RightSidebarProps) => {
       </section>
 
       {/* Banks Section */}
-      <section className="banks mt-6">
-        <div className="flex w-full justify-between items-center">
+      <section className="mb-8">
+        <div className="mb-4 flex w-full items-center justify-between">
           <h2 className="text-lg font-semibold text-green-900">My Banks</h2>
           <Link
             href="/"
-            className="flex items-center gap-2 text-green-600 hover:text-green-800"
+            className="inline-flex items-center gap-2 rounded-lg px-3 py-1.5 text-sm font-medium text-emerald-600 transition-colors hover:bg-emerald-50 hover:text-emerald-700 active:bg-emerald-100"
           >
-            <Image
-              src="/icons/plus.svg"
-              width={20}
-              height={20}
-              alt="Add Bank"
-            />
-            <span className="text-sm font-medium">Add Bank</span>
+            <Plus className="h-4 w-4" />
+            Add Bank
           </Link>
         </div>
 
-        {/* Kiểm tra banks có dữ liệu hợp lệ không */}
-        {Array.isArray(banks) && banks.length > 0 ? (
-          <div className="mt-4 max-h-[250px] overflow-y-auto space-y-3">
-            {banks.map((bank) => {
-              const account = mockAccounts.find(
-                (acc) => acc.id === bank.accountId
-              );
+        <ScrollArea className="h-[250px] pr-4">
+          <div className="space-y-3">
+            {Array.isArray(banks) && banks.length > 0 ? (
+              banks.map((bank) => {
+                const account = mockAccounts.find(
+                  (acc) => acc.id === bank.accountId
+                );
 
-              return (
-                account && (
-                  <BankCard
-                    key={bank.bankId}
-                    account={account}
-                    userName={`${mockUser.firstName} ${mockUser.lastName}`}
-                    showBalance
-                  />
-                )
-              );
-            })}
+                return (
+                  account && (
+                    <BankCard
+                      key={bank.bankId}
+                      account={account}
+                      userName={`${mockUser.firstName} ${mockUser.lastName}`}
+                      showBalance
+                    />
+                  )
+                );
+              })
+            ) : (
+              <div className="flex h-[200px] items-center justify-center rounded-xl border-2 border-dashed border-emerald-200 bg-emerald-50/50">
+                <p className="text-sm text-emerald-600">No banks linked yet.</p>
+              </div>
+            )}
           </div>
-        ) : (
-          <p className="text-sm text-green-700 mt-3">No banks linked yet.</p>
-        )}
+        </ScrollArea>
       </section>
 
       {/* Transaction Categories */}
-      <section className="mt-8">
-        <h2 className="text-lg font-semibold text-green-900 mb-3">
+      <section>
+        <h2 className="mb-4 text-lg font-semibold text-green-900">
           Top Categories
         </h2>
-        <div className="grid grid-cols-2 gap-4 max-h-[200px] overflow-y-auto">
-          {categories.map((category) => (
-            <Category key={category.name} category={category} />
-          ))}
-        </div>
+        <ScrollArea className="h-[280px] pr-4">
+          <div className="grid grid-cols-2 gap-4">
+            {categories.map((category) => (
+              <Category key={category.name} category={category} />
+            ))}
+          </div>
+        </ScrollArea>
       </section>
     </aside>
   );

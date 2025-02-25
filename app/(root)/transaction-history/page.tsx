@@ -5,9 +5,15 @@ import TransactionsTable from "@/components/TransactionsTable";
 import { formatAmount } from "@/lib/utils";
 
 const TransactionHistory = async ({
-  searchParams: { id, page },
-}: SearchParamProps) => {
-  const currentPage = Number(page as string) || 1;
+  searchParams,
+}: {
+  searchParams: { id?: string; page?: string };
+}) => {
+  const id = searchParams?.id;
+  const page =
+    typeof window !== "undefined" ? Number(searchParams?.page) || 1 : 1;
+
+  const currentPage = Number(page) || 1;
   const accountsData = mockAccounts;
   const appwriteItemId = (id as string) || accountsData[0]?.appwriteItemId;
   const account = accountsData.find(
@@ -34,12 +40,10 @@ const TransactionHistory = async ({
 
   return (
     <div className="transactions">
-      <div className="transactions-header">
-        <HeaderBox
-          title="Transaction History"
-          subtext="See your bank details and transactions."
-        />
-      </div>
+      <HeaderBox
+        title="Transaction History"
+        subtext="See your bank details and transactions."
+      />
 
       <div className="space-y-6">
         <div className="transactions-account">
